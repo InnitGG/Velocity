@@ -3,6 +3,8 @@ import com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCach
 plugins {
     id 'java'
     id 'checkstyle'
+    id 'java-library'
+    id 'maven-publish'
 }
 
 apply plugin: 'org.cadixdev.licenser'
@@ -39,7 +41,6 @@ task javadocJar(type: Jar) {
 task sourcesJar(type: Jar) {
     classifier 'sources'
     from sourceSets.main.allSource
-    from sourceSets.ap.output
 }
 
 shadowJar {
