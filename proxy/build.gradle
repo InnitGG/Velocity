@@ -31,6 +31,17 @@ jar {
     }
 }
 
+task javadocJar(type: Jar) {
+    classifier 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+    from sourceSets.ap.output
+}
+
 shadowJar {
     transform(Log4j2PluginsCacheFileTransformer)
 }
@@ -158,5 +169,18 @@ shadowJar {
 }
 
 artifacts {
+    archives javadocJar
     archives shadowJar
+    archives sourcesJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
 }
